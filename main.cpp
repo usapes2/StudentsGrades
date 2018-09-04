@@ -15,6 +15,7 @@ using std::streamsize;
 using std::vector;
 using std::sort;
 using std::domain_error;
+using std::istream;
 
 // coumpute the median of a vector<double>
 // note that calling this function copies the entire argument vector
@@ -43,6 +44,23 @@ double grade(double midterm, double final, const vector<double>& hw )
 	return grade(midterm,final,median(hw));
 }
 
+// read homework grades from an input stream into a vector<double>
+istream& read_hw(istream& in, vector<double>& hw) 
+{
+	// fill in this part
+	// if(read_hw(cin,homework) 
+	if(in){
+	hw.clear();
+	// read hw grades
+	double x;
+	while (in>>x)
+		hw.push_back(x);
+	in.clear();
+	}
+	
+	return in;
+}
+
 int main() 
 {
 	// ask for and read the student's name
@@ -64,8 +82,7 @@ int main()
 	vector<double> homework;
 
 	// invariant: homework contains all the hws grades read so far
-	while ( cin>>x) 
-		homework.push_back(x);
+	read_hw((cin),homework);
 
 	streamsize prec = cout.precision();
 	cout << " Your final grade is "<< setprecision(3)
