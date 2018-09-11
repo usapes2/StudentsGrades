@@ -83,11 +83,17 @@ int main()
 
 	// invariant: homework contains all the hws grades read so far
 	read_hw((cin),homework);
-
+	// compute and generate the final grade, if possible
+	try {
+	double final_grade = grade(midterm,final,homework);
 	streamsize prec = cout.precision();
 	cout << " Your final grade is "<< setprecision(3)
-		<<0.2*midterm + 0.4 *final + 0.4*median(homework)
-		<< setprecision(prec) <<endl;
+		<< final_grade
+		<< setprecision(prec) <<endl; } catch (domain_error) {
+			cout << endl<<"You must enter your grades. "
+				"Please try again."<<endl;
+			return 1;
+		}
 
 	return 0;
 }
