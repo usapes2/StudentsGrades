@@ -6,6 +6,7 @@
 #include<algorithm>
 #include<stdexcept>
 
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -16,10 +17,11 @@ using std::vector;
 using std::sort;
 using std::domain_error;
 using std::istream;
+using std::max;
 
 struct Student_info {
 	string name;
-	double medterm,final;
+	double midterm,final;
 	vector<double> homework;
 }; 
 // coumpute the median of a vector<double>
@@ -66,39 +68,55 @@ istream& read_hw(istream& in, vector<double>& hw)
 	return in;
 }
 
+istream& read(istream& is, Student_info& s)
+{
+	// read and store the student's name and midterm and final exam grades
+	is>> s.name >> s.midterm >> s.final;
+	read_hw(is,s.homework); // read and store all the student's homework grades
+	return is;
+}
+
+double grade(const Student_info& s)
+{
+	return grade(s.midterm,s.final,s.homework);
+}
+
+bool compare(const Student_info& x, const Student_info& y){
+	return x.name < y.name;
+	} // predicate function for sorting by name
+
+
 int main() 
 {
-	// ask for and read the student's name
-	cout << "Please enter your first name: ";
-	string name;
-	cin >> name;
-	cout << "Hello,"<<name<<"!"<<endl;
+	vector<Student_info> students;
+	Student_info record;
+	string::size_type maxlen = 0;
 
-	// ask for and read the midterm and final grades
-	cout << "Pleae enter your midterm and final exam grades: ";
-	double midterm,final;
-	cin>>midterm>>final;
+	// read and store all the records, and find the length of the longest name
+	while (read(cin,record)) {
+		maxlen = max(maxlen,record.name.length());
+		students.push_back(record);
+	}
 
-	// ask for the homework grades
-	cout << "Enter all your homework grades,"
-		"followd by end-of-file: ";
+	// alphabetize the records
+	sort(students.begin(),students.end(),compare);
+	
+	for (vector<Student_info>::size_type i=0; i!=students.size();++i){
+		// write the name, padded on the right to maxlen + 1 characters
+		cout << students[i].name
+			<<string(maxlen+1-students[i].name.size(),' ');
 
-	double x;
-	vector<double> homework;
-
-	// invariant: homework contains all the hws grades read so far
-	read_hw((cin),homework);
-	// compute and generate the final grade, if possible
+		// compare and write the grade
 	try {
-	double final_grade = grade(midterm,final,homework);
-	streamsize prec = cout.precision();
-	cout << " Your final grade is "<< setprecision(3)
+		double final_grade = grade(students[i]);
+		streamsize prec = cout.precision();
+		cout << " Your final grade is "<< setprecision(3)
 		<< final_grade
-		<< setprecision(prec) <<endl; } catch (domain_error) {
-			cout << endl<<"You must enter your grades. "
-				"Please try again."<<endl;
-			return 1;
+		<< setprecision(prec) <<endl; } catch (domain_error e) {
+			cout << e.what();
 		}
+	cout << endl;
+	}
 
 	return 0;
 }
