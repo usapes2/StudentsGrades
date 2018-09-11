@@ -17,6 +17,11 @@ using std::sort;
 using std::domain_error;
 using std::istream;
 
+struct Student_info {
+	string name;
+	double medterm,final;
+	vector<double> homework;
+}; 
 // coumpute the median of a vector<double>
 // note that calling this function copies the entire argument vector
 double median(vector<double> vec)
