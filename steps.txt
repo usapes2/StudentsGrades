@@ -3,3 +3,6 @@
 Imagine a course in which each student's final exam counts for 40% of the final grade,
 the midterm exam counts for 20%, and the average homework grade makes up the remainig 40%. 
 Here is first try at a program that helps students compute their final grades
+
+55555eparating students into categories
+	
