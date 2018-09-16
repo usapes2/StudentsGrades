@@ -1,3 +1,29 @@
+/* iterator is a value that
+ * identifies a container and an element in the container
+ * lets us examine the value stored in that element
+ * provides operations for moving between elements in the container
+ * restricts the available operations in ways that correspond to what
+ * the container can handle efficiently
+ */
+ 
+/* for(vector<Student_info>::size_type i=0;i != students.size();++i)
+ * 	cout<<students[i].name<<endl;
+ 
+ * for(vector<Student_info>::const_iterator iter = students.begin();
+ * 		iter != students.end(); ++iter) {
+ * 		cout <<(*iter).name<<endl;
+ * 		}
+ * for(vector<Student_info>::const_iterator iter = students.begin();
+ * 		iter != students.end(); ++iter) {
+ * 		cout <<iter->name<<endl;
+ * 		}
+ *
+ *
+ * container-type::iterator
+ * container-type::const_iterator
+ * (*iter).name -- same as -- iter->name
+ */
+
 #include<iomanip>
 #include<ios>
 #include<iostream>
@@ -26,21 +52,21 @@ using std::max;
 // note that calling this function copies the entire argument vector
 // read homework grades from an input stream into a vector<double>
 
-// second try: correct but potentially slow
+// Third try: using iterator but not indx, still potentially slow
 vector<Student_info> extract_fails(vector<Student_info> & students)
 {
 	vector<Student_info> fail;
-	vector<Student_info>::size_type i = 0;
-	// invariant: elements[0,i) of students represent passing grads
-	while(i!=students.size()){
-		if(fgrade(students[i])){
-			fail.push_back(students[i]);
-			students.erase(students.begin()+i);
-		} else 
-			++i;
+	vector<Student_info>::iterator iter = students.begin();
+		while(iter!=students.end()) {
+			if(fgrade(*iter)) {
+				fail.push_back(*iter);
+				// erase returns an iterator that is positioned on the element that follows the one we just erased.
+				iter = students.erase(iter);
+			} else 
+				++iter;
 		}
-	return fail;
-	}
+		return fail;
+}
 
 
 int main() 
