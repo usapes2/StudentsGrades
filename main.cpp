@@ -26,21 +26,21 @@ using std::max;
 // note that calling this function copies the entire argument vector
 // read homework grades from an input stream into a vector<double>
 
-// predicate to determine whether a student failed
+// second try: correct but potentially slow
 vector<Student_info> extract_fails(vector<Student_info> & students)
 {
-	vector<Student_info> pass,fail;
-
-	for(vector<Student_info>::size_type i=0;i != 0; ++i) {
-		if (fgrade(students[i])) 
+	vector<Student_info> fail;
+	vector<Student_info>::size_type i = 0;
+	// invariant: elements[0,i) of students represent passing grads
+	while(i!=students.size()){
+		if(fgrade(students[i])){
 			fail.push_back(students[i]);
-		else 
-		 	pass.push_back(students[i]);
-		}	
-
-	students = pass;
+			students.erase(students.begin()+i);
+		} else 
+			++i;
+		}
 	return fail;
-}	
+	}
 
 
 int main() 
