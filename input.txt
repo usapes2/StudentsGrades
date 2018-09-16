@@ -1,0 +1,6 @@
+        Hello         world this is my programm            
+
+30 10 3 0
+
+
+80 90 100

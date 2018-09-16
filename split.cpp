@@ -36,11 +36,16 @@ vector<string> split(const string& s)
 }
 
 int main () {
-	string s("Hello world InterGallactic Fast and furious      1");
-	vector<string> v = split(s);
-	for(vector<string>::iterator iter = v.begin() ;
+	//string s("1 2 3 4 5 6 7 8 9");
+	string s ;
+	// read and split each line of input
+	while (getline(cin,s)) {
+		vector<string> v = split(s);
+		// write each word in v
+		for(vector<string>::iterator iter = v.begin() ;
 			iter != v.end(); ++iter)
-		cout << *iter <<endl;
+			cout << *iter <<endl; 
+	}
 
 	return 0;
 }
