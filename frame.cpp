@@ -31,13 +31,46 @@ vector<string> frame(const vector<string>& v) {
 	return ret;
 }
 
+vector<string> vcat(const vector<string>& top, const vector<string>& bottom)
+{
+	// copy the top picture
+	vector<string> ret = top;
+
+	// copy entire bottom picture
+/*for ( vector<string>::const_iterator it = bottom.begin(); it!=bottom.end(); ++it) {
+		ret.push_back(*it);
+	}
+	return ret; */
+
+	// we can use what library offers us
+	ret.insert(ret.end(),bottom.begin(),bottom.end());
+	return ret;
+}
+
+void printvect(vector<string> v) {
+	for( vector<string>::const_iterator it =v.begin(); it != v.end(); ++it)
+		cout << *(it) << endl;
+}
 int main() {
 
 	vector<string> v;
+	vector<string> f;
+	f.push_back("Random");
+	f.push_back("Random");
+	f.push_back("Random");
+	f.push_back("Random");
+	f.push_back("Random");
+	f.push_back("Random");
+	f.push_back("Random");
 	v.push_back("Sapeshka");
-	vector<string> k = frame(v);
-	for(int i = 0; i!=k.size();++i)
-		cout <<k[i]<<endl; 
+	v.push_back("Sapeshka");
+	v.push_back("Sapeshka");
+	v.push_back("Sapeshka");
+	v.push_back("Sapeshka");
+	vector<string> newvect = vcat(f,v);
+
+	printvect(frame(newvect));
+	
 	return 0;
 
 }
