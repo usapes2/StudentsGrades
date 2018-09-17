@@ -51,6 +51,40 @@ void printvect(vector<string> v) {
 	for( vector<string>::const_iterator it =v.begin(); it != v.end(); ++it)
 		cout << *(it) << endl;
 }
+
+vector<string> hcat(const vector<string>& left, const vector<string>& right)
+{
+	vector<string> ret;
+
+	// add 1 to leave a space between pictures
+	string::size_type width1 = width(left) + 1;
+	
+	// indices to look at elemtents from left and right respectivly
+	vector<string>::size_type i=0,j=0;
+
+	// continue untill we've seen all rows from both pictures
+	while ( i != left.size() || j != right.size()) {
+	// construct new string to hold characters from both pictures
+		string s;
+
+	// copy a row from the left hand side, if there is one
+		if(i != left.size())
+			s+= left[i++];
+		// pad to full width
+		s+= string(width1 - s.size(),' ');
+
+	// copy a row from the right hand side, if there is one
+		if(j != right.size())
+			s+= right[j++];
+		ret.push_back(s);
+	}
+	
+	return ret;
+
+}
+
+
+
 int main() {
 
 	vector<string> v;
@@ -69,7 +103,7 @@ int main() {
 	v.push_back("Sapeshka");
 	vector<string> newvect = vcat(f,v);
 
-	printvect(frame(newvect));
+	printvect(frame(hcat(v,f)));
 	
 	return 0;
 
