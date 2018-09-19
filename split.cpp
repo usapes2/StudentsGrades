@@ -35,6 +35,18 @@ vector<string> split(const string& s)
 	return ret;
 }
 
+vector<string> vcat(const vector<string>& top, const vector<string>& bottom)
+{
+	// copy the top picture
+	vector<string> ret = top;
+
+	// copy entire bottom picture
+	for ( vector<string>::const_iterator it = bottom.begin(); it!=bottom.end(); ++it) {
+		ret.push_back(*it);
+	}
+	return ret;
+}
+
 int main () {
 	//string s("1 2 3 4 5 6 7 8 9");
 	string s ;

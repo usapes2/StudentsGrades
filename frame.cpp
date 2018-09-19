@@ -43,15 +43,22 @@ vector<string> vcat(const vector<string>& top, const vector<string>& bottom)
 	return ret; */
 
 	// we can use what library offers us
-	ret.insert(ret.end(),bottom.begin(),bottom.end());
+//	ret.insert(ret.end(),bottom.begin(),bottom.end());
+
+//	Yet another way to do this using copy functions from Alg
+	copy(bottom.begin(),bottom.end(),back_inserter(ret));
 	return ret;
 }
 
 void printvect(vector<string> v) {
-	for( vector<string>::const_iterator it =v.begin(); it != v.end(); ++it)
+	for( vector<string>::reverse_iterator it =v.rbegin(); it != v.rend(); ++it)
 		cout << *(it) << endl;
 }
 
+void printvectrev(vector<string> v) {
+	for( vector<string>::const_iterator it =v.begin(); it != v.end(); ++it)
+		cout << *(it) << endl;
+}
 vector<string> hcat(const vector<string>& left, const vector<string>& right)
 {
 	vector<string> ret;
@@ -88,23 +95,15 @@ vector<string> hcat(const vector<string>& left, const vector<string>& right)
 int main() {
 
 	vector<string> v;
-	vector<string> f;
-	f.push_back("Random");
-	f.push_back("Random");
-	f.push_back("Random");
-	f.push_back("Random");
-	f.push_back("Random");
-	f.push_back("Random");
-	f.push_back("Random");
-	v.push_back("Sapeshka");
-	v.push_back("Sapeshka");
-	v.push_back("Sapeshka");
-	v.push_back("Sapeshka");
-	v.push_back("Sapeshka");
-	vector<string> newvect = vcat(f,v);
+	v.push_back("1");
+	v.push_back("2");
+	v.push_back("3");
+	v.push_back("4");
+	v.push_back("5");
+	v.push_back("6");
+	vector<string> f(v);
+	printvect(vcat(f,v));
 
-	printvect(frame(hcat(v,f)));
-	
 	return 0;
 
 }
